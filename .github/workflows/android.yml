@@ -32,6 +32,10 @@ jobs:
         sudo apt install -y openjdk-11-jdk gradle python-is-python3 ruby git rsync libunwind-dev
         sudo apt build-dep -y wine
 
+    - name: Copy jni.h to /usr/include
+      run: |
+        sudo cp /usr/lib/jvm/java-11-openjdk-amd64/include/jni.h /usr/include
+       
     - name: Make gimmeapk executable
       run: chmod +x gimmeapk
 
