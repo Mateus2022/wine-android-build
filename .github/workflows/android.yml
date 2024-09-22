@@ -1,0 +1,41 @@
+name: Build and Upload APK
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Alvo: Debian x86_64 (Ubuntu é baseado no Debian)
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Gradle
+      uses: gradle/gradle-build-action@v2
+    
+    - name: Install Dependencies
+      run: |
+        sudo apt update
+        sudo apt install -y gradle python ruby git rsync
+        sudo apt build-dep -y wine
+
+    - name: Make gimmeapk executable
+      run: chmod +x gimmeapk
+
+    - name: Make make executable
+      run: chmod +x make
+
+    - name: Run Make to Build Project
+      run: ./make -p sample-project
+
+    - name: Run gimmeapk to Obtain APK
+      run: ./gimmeapk build
+
+    - name: Upload APK Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: wine-debug.apk
+        path: build/wine/dlls/wineandroid.drv/wine-debug.apk
