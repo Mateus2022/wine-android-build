@@ -27,9 +27,9 @@ jobs:
         sudo apt update
         sudo apt --fix-broken install -y
 
-    - name: Install Dependencies and libunwind-dev
+    - name: Install JDK and Dependencies
       run: |
-        sudo apt install -y gradle python-is-python3 ruby git rsync libunwind-dev
+        sudo apt install -y openjdk-11-jdk gradle python-is-python3 ruby git rsync libunwind-dev
         sudo apt build-dep -y wine
 
     - name: Make gimmeapk executable
