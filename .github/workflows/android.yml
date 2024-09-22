@@ -21,9 +21,15 @@ jobs:
         sudo sed -i 's/^# deb-src/deb-src/' /etc/apt/sources.list
         sudo apt update
 
-    - name: Install Dependencies
+    - name: Add universe repository and fix broken packages
       run: |
-        sudo apt install -y gradle python-is-python3 ruby git rsync
+        sudo add-apt-repository universe
+        sudo apt update
+        sudo apt --fix-broken install -y
+
+    - name: Install Dependencies and libunwind-dev
+      run: |
+        sudo apt install -y gradle python-is-python3 ruby git rsync libunwind-dev
         sudo apt build-dep -y wine
 
     - name: Make gimmeapk executable
