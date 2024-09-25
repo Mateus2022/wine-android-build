@@ -34,7 +34,7 @@ jobs:
 
     - name: Copy jni.h to /usr/include
       run: |
-        sudo cp -r /usr/lib/jvm/java-11-openjdk-amd64/include/* /usr/include
+        sudo cp -r /usr/lib/jvm/java-11-openjdk-amd64/include/jni* /usr/include
        
     - name: Make gimmeapk executable
       run: chmod +x gimmeapk
