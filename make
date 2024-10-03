@@ -283,7 +283,7 @@ Dir.chdir("build") do
         puts " -> Building freetype for Android...".blue.reverse_color
 
         Dir.chdir("freetype-%s" % [options[:freetypeversion]]) do
-            system("CPPFLAGS="-I../usr/lib/jvm/java-11-openjdk-amd64/include" ./configure --host=$TOOLCHAIN_TRIPLE --prefix=%s/output --without-zlib \
+            system("CPPFLAGS=\"-I../usr/lib/jvm/java-11-openjdk-amd64/include\" ./configure --host=$TOOLCHAIN_TRIPLE --prefix=%s/output --without-zlib \
                 --with-png=no --with-brotli=no --with-harfbuzz=no CC=%s CXX=%s > /dev/null" % [Dir.pwd, options[:cc], options[:cxx]])
             system("make -j%d > /dev/null && make install > /dev/null" % [Etc.nprocessors])
         end
